@@ -41,20 +41,29 @@ function drawAxes() {
 
     ctx.strokeStyle = 'maroon'
     ctx.lineWidth = 2;
-    ctx.font = '15px Arial'
+    ctx.font = '18px Arial'
 
-   for(let x = xMin; x<= xMax; x += step){
-        drawLine(x, yMin, x, yMax, 'gray', 2, true);
-        ctx.fillStyle = 'black'
-        ctx.fillText(x, toCanvasX(x), toCanvasY(0));
+   for(let x = xMin; x<= xMax; x += step/4){
+            drawLine(x, yMin, x, yMax, 'lightgray', 1);
     } 
     
-    for(let y = yMin; y<= yMax; y += step){
-        drawLine(xMin, y, xMax, y, 'gray', 2, true);
-        ctx.fillStyle = 'black'
-        ctx.fillText(y, toCanvasX(0), toCanvasY(y));
+    for(let y = yMin; y<= yMax; y += step/4){
+        drawLine(xMin, y, xMax, y, 'lightgray', 1);
+        
     } 
 
+    for(let x = xMin; x<= xMax; x += step){
+        drawLine(x, yMin, x, yMax, 'black', 1);
+        ctx.fillStyle = 'black'
+        ctx.fillText(x, toCanvasX(x + 0.05), toCanvasY(0.05));
+    }
+
+
+    for(let y = yMin; y<= yMax; y += step){
+        drawLine(xMin, y, xMax, y, 'black', 1);
+        ctx.fillStyle = 'black'
+        ctx.fillText(y, toCanvasX(0.05), toCanvasY(y + 0.05));
+    }
 
     if (xMin <= 0 && xMax >= 0){
         // Y Axis
@@ -162,8 +171,6 @@ function parseLine(eq) {
 
     return eq;
 }
-
-
 
 function plotMethod(input, color, num){
     if (input.includes(',')){
