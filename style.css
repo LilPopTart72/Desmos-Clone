@@ -82,7 +82,6 @@ h1 {
 /* The rest of your existing classes can stay */
 .box {
     background: #c9c9c9;
-    margin: 5px;
     padding: 10px;
     text-align: center;
     border-radius: 15px;

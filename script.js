@@ -1,8 +1,8 @@
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
-Width = canvas.width;
-Height = canvas.height
+Width = 0;
+Height = 0;
 
 let xMax, xMin, yMax, yMin, step;
 
@@ -93,7 +93,7 @@ function plotLine(eq, color, size, num){
     eq = eq.replace(/\bb\b/g, document.getElementById(txt2).value );
     eq = eq.replace(/\bc\b/g, document.getElementById(txt3).value );
 
-    for (let x = xMin; x <= xMax; x += step/20){
+    for (let x = xMin; x <= xMax; x += step/50){
         y = eval(eq);
         //plotPoint(x, y, color, size);
 
@@ -106,6 +106,7 @@ function plotLine(eq, color, size, num){
 
 
 function updateGraph(){
+    resizeCanvas();
     drawAxes();
 
     [['plot1', 'blue', '1'], ['plot2', 'green', '2'], ['plot3', 'red', '3'], ['plot4', 'purple', '4'], ['plot5', 'orange', '5']].forEach(([id, color, num]) => {
@@ -193,10 +194,8 @@ function resizeCanvas() {
     // Update our globals
     Width  = canvas.width;
     Height = canvas.height;
-
-    updateGraph(); // redraw using new Width/Height
 }
-resizeCanvas();
+updateGraph();
 
 const controlIds = [
     'xMin', 'xMax', 'yMin', 'yMax', 'step',
@@ -212,3 +211,5 @@ controlIds.forEach(id => {
         el.addEventListener('input', updateGraph);
     }
 });
+
+window.addEventListener('resize', updateGraph);

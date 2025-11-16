@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.3] - 2025-11-16
+### Added
+- Dynamic window resize listener to keep the graph updated automatically.
+
+### Changed
+- Updated UI placeholder values and variable names.
+- Increased minor gridline density for smoother curve rendering.
+
+### Fixed
+- General minor issues.
+
 ## [1.0.2] - 2025-11-16
 ### Added
 - Scrollbar support for the .settings panel.
