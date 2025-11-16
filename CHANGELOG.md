@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.2] - 2025-11-16
+### Added
+- Scrollbar support for the .settings panel.
+
+### Changed
+- Updated .settings layout and overflow behavior to better match the plotter panel.
+
+### Fixed
+- Fixed clipping issues where .settings content could be cut off on certain screen sizes.
+
 ## [1.0.1] - 2025-11-16
 ### Added
 - Added a resizeCanvas() function that dynamically recalculates canvas width and height based on viewport changes.

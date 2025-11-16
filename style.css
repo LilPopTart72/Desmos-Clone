@@ -19,17 +19,32 @@ body {
 h1 {
     margin: 10px;
     flex: 0 0 auto;
+    text-align: center;
 }
 
 /* Top settings bar: natural height only */
 .settings {
     display: flex;
-    margin: 0 10px 10px 10px;
+    flex-wrap: nowrap;      /* no wrapping */
+    gap: 10px;
+
+    margin: 0 10px 10px;
     padding: 20px;
     background: #e2e2e2;
     border-radius: 15px;
-    flex: 0 0 auto;      /* don't grow */
+    flex: 0 0 auto;
+    align-items: ;
+
+    overflow-x: auto;       /* horizontal scrollbar */
+    overflow-y: hidden;     /* no vertical scroll */
+    box-sizing: border-box;
 }
+
+.box {
+    flex: 0 0 auto;         /* each box keeps its own width, doesn't shrink */
+}
+
+
 
 /* MAIN AREA: fills the rest of the viewport */
 .row {
@@ -37,22 +52,26 @@ h1 {
     flex: 1 1 auto;      /* this is now the big middle area */
     align-items: stretch; /* children (plotter + canvas) same height */
     width: 100%;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: visible;
 }
 
 /* Left panel */
 .plotter {
     background: #e2e2e2;
-    padding: 20px;
+    padding: 5px;
+    padding-right: 60px;
     border-radius: 15px;
     flex: 0 0 400px;     /* fixed-ish width column */
     box-sizing: border-box;
     overflow-y: auto;    /* scroll if content taller than viewport */
+    overflow-x: hidden; /* NO bottom scrollbar */
 }
 
 /* Canvas */
 #graph {
     border: 1px solid #555;
+    border-radius: 15px;
     background: white;
     flex: 1 1 auto;      /* take all remaining width */
     align-self: stretch; /* same height as .row */
