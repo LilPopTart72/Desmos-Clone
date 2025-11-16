@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Desmos Clone</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Desmos Clone</h1>
+        <div class="settings">
+            <div class="box">
+                <h3>X Min</h3>
+                <input id="xMin" type="text" value="-10">
+            </div>
+            <div class="box">
+                <h3>X Max</h3>
+                <input id="xMax" type="text" value="10">
+            </div>
+            <div class="box">
+                <h3>Y Min</h3>
+                <input id="yMin" type="text" value="-10">
+            </div>
+            <div class="box">
+                <h3>Y Max</h3>
+                <input id="yMax" type="text" value="10">
+            </div>
+            <div class="box">
+                <h3>Step</h3>
+                <input id="step" type="text" value="1">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col plotter">
+                <h3>Functions (y = mx + b)</h3>
+                <div class="col card" id="card1">
+                    <input id="plot1" type="text"  value="1,2"placeholder="(x, y) or y = mx^2 + b">
+                    <h3 id="slider1text"></h3>
+                    <input type="range" id="a1slider" min="-10" max="10" step="1" value="0"/>
+                    <input type="range" id="b1slider" min="-10" max="10" step="1" value="0"/>
+                    <input type="range" id="c1slider" min="-10" max="10" step="1" value="0"/>
+                </div>
+                <div class="col card" id="card2">
+                    <input id="plot2" type="text"  value="y=asin(bx+c)"placeholder="(x, y) or y = mx^2 + b">
+                    <h3 id="slider2text"></h3>
+                    <input type="range" id="a2slider" min="-10" max="10" step="1" value="0"/>
+                    <input type="range" id="b2slider" min="-10" max="10" step="1" value="0"/>
+                    <input type="range" id="c2slider" min="-10" max="10" step="1" value="0"/>
+                </div>
+
+                <div class="col card" id="card3">
+                    <input id="plot3" type="text"  value="y=ax^3+bx^2+cx" placeholder="(x, y) or y = mx^2 + b">
+                    <h3 id="slider3text"></h3>
+                    <input type="range" id="a3slider" min="-10" max="10" step="0.01" value="0"/>
+                    <input type="range" id="b3slider" min="-10" max="10" step="0.01" value="0"/>
+                    <input type="range" id="c3slider" min="-10" max="10" step="1" value="0"/>
+                </div>
+
+                <div class="col card" id="card4">
+                    <input id="plot4" type="text"  placeholder="(x, y) or y = mx^2 + b">
+                </div>
+
+                <div class="col card" id="card5">
+                    <input id="plot5" type="text"  placeholder="(x, y) or y = mx^2 + b">
+                </div>
+                
+            </div>
+            <canvas id="graph" width="950" height="950"></canvas>
+        </div>
+
+    
+        <script src="script.js" async defer></script>
+    </body>
+</html>
