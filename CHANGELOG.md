@@ -3,9 +3,26 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-11-16
+### Added
+- Added a resizeCanvas() function that dynamically recalculates canvas width and height based on viewport changes.
+- Implemented fully responsive graph scaling (recalculates scale, offsets, and redraws on window resize).
+
+### Changed
+- Updated CSS layout so the canvas correctly fills the remaining viewport height (vh) and scales proportionally at all window sizes.
+- Modified script.js pathways to ensure proper dynamic scaling, preventing stretching/squishing of drawn elements.
+- Updated coordinate-mapping logic to use unified scaling and viewport offsets for pixel-accurate rendering.
+- Improved layout structure so the graph area and function panel resize independently without overflowing.
+
+### Fixed
+- Fixed canvas squishing/stretching issues caused by mismatched aspect ratios during resize.
+- Fixed broken height behavior when shrinking the browser window.
+- Fixed resolution mismatch when the canvas size changed, ensuring clean and accurate redraws.
+
+
 ## [1.0.0] - 2025-11-16
 ### Added
-- None
+- added a resize graph function
 
 ### Changed
 - Updated `drawAxes` to display major gridlines (step lines) in black and four minor gridlines between each step in light gray.
@@ -16,6 +33,8 @@ All notable changes to this project will be documented in this file.
   4. draw axes  
   5. draw points and plotted functions  
   This ensures proper layering and visual clarity.
+- updated css to allow the canvas to scale to vh size acuratly
+-
 
 ### Fixed
 - None

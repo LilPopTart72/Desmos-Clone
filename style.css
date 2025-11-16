@@ -1,27 +1,66 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
 body {
     background: #eee;
     color: #111;
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    height: 100vh;      /* lock body to viewport height */
+    overflow: hidden;
 }
 
-canvas {
-    border: 1px solid #555;
-    background: white;
+/* optional: just so the title doesn't eat flex space */
+h1 {
+    margin: 10px;
+    flex: 0 0 auto;
 }
 
+/* Top settings bar: natural height only */
 .settings {
     display: flex;
-    margin: 20px;
+    margin: 0 10px 10px 10px;
     padding: 20px;
     background: #e2e2e2;
-    border: 0px solid black;
     border-radius: 15px;
+    flex: 0 0 auto;      /* don't grow */
 }
 
+/* MAIN AREA: fills the rest of the viewport */
+.row {
+    display: flex;
+    flex: 1 1 auto;      /* this is now the big middle area */
+    align-items: stretch; /* children (plotter + canvas) same height */
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Left panel */
+.plotter {
+    background: #e2e2e2;
+    padding: 20px;
+    border-radius: 15px;
+    flex: 0 0 400px;     /* fixed-ish width column */
+    box-sizing: border-box;
+    overflow-y: auto;    /* scroll if content taller than viewport */
+}
+
+/* Canvas */
+#graph {
+    border: 1px solid #555;
+    background: white;
+    flex: 1 1 auto;      /* take all remaining width */
+    align-self: stretch; /* same height as .row */
+    min-width: 0;
+    display: block;
+}
+
+/* The rest of your existing classes can stay */
 .box {
     background: #c9c9c9;
     margin: 5px;
@@ -29,28 +68,14 @@ canvas {
     text-align: center;
     border-radius: 15px;
 }
-/*Reusable classes*/
-.row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
 
 .col {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
-
-.plotter {
-    background: #e2e2e2;
-    padding: 20px;
-    border-radius: 15px;
-    margin: 10px;
-}
-
 
 .card {
     background: #c9c9c9;

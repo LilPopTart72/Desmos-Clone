@@ -1,8 +1,8 @@
 const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
-const Width = canvas.width;
-const Height = canvas.height
+Width = canvas.width;
+Height = canvas.height
 
 let xMax, xMin, yMax, yMin, step;
 
@@ -185,8 +185,18 @@ function plotMethod(input, color, num){
     }
 
 }
+function resizeCanvas() {
+    // Match internal size to CSS layout size
+    canvas.width  = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
-updateGraph();
+    // Update our globals
+    Width  = canvas.width;
+    Height = canvas.height;
+
+    updateGraph(); // redraw using new Width/Height
+}
+resizeCanvas();
 
 const controlIds = [
     'xMin', 'xMax', 'yMin', 'yMax', 'step',
