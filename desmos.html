@@ -14,12 +14,7 @@
     </head>
     <body>
         <h1>Desmos Clone</h1>
-        <div class="settings"> 
-            <div class="box">
-                <h3 id="stepCounter">Step</h3>
-                <input type="range" id="step" min="0.001" max="100" step="0.01" value="1"/>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="plotter">
@@ -49,11 +44,20 @@
 
                 <div class="col card" id="card4">
                     <input id="plot4" type="text"  placeholder="(x, y) or y = mx^2 + b">
+                    <h3 id="slider4text">A: 0 B: 0 C: 0</h3>
+                    <input type="range" id="a4slider" min="-10" max="10" step="0.01" value="1"/>
+                    <input type="range" id="b4slider" min="-10" max="10" step="0.01" value="1"/>
+                    <input type="range" id="c4slider" min="-10" max="10" step="1" value="1"/>
                 </div>
 
                 <div class="col card" id="card5">
                     <input id="plot5" type="text"  placeholder="(x, y) or y = mx^2 + b">
+                    <h3 id="slider5text">A: 0 B: 0 C: 0</h3>
+                    <input type="range" id="a5slider" min="-10" max="10" step="0.01" value="1"/>
+                    <input type="range" id="b5slider" min="-10" max="10" step="0.01" value="1"/>
+                    <input type="range" id="c5slider" min="-10" max="10" step="1" value="1"/>
                 </div>
+
                 
             </div>
             <canvas id="graph"></canvas>

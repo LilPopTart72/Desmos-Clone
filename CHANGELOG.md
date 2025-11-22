@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.4] - 2025-11-21
 
+### Added
+- Ability to zoom in and ouut with scroll wheel on the graph.
+
+### Changed
+- Update general Ui look and remove Settings bar.
+
+
+### Fixed
+- Small variables and structures for the new scroll method
+
+## [1.0.4] - 2025-11-21
+
 ### Changed
 - Updated axis range calculations (xMin, xMax, yMin, yMax) to use parseFloat and Math.floor/ceil instead of parseInt to fully support decimal step sizes.
 - Reworked major gridline loops to increment directly by step rather than iterating by integers and using modulo checks.

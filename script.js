@@ -30,8 +30,6 @@ function drawLine(x1, y1, x2, y2, color = 'black', lineWidth = 2, dashed = false
 }
 
 function drawAxes() {
-    step = parseFloat(document.getElementById('step').value);
-
     if (!Number.isFinite(step) || step <= 0) {
         step = 1;
     }
@@ -75,7 +73,11 @@ function drawAxes() {
         drawLine(x, yMin, x, yMax, 'black', 1);
 
         // label directly under the axis, 4px down
-        ctx.fillText(x.toFixed(2), toCanvasX(x) + 4, axisY);
+        if (step >= 1) {
+            ctx.fillText(x, toCanvasX(x) , axisY - 2);
+        }else{
+            ctx.fillText(x.toFixed(4), toCanvasX(x) , axisY - 2);
+        }
     }
 
     // --- Major horizontal lines + y labels ---
@@ -92,7 +94,14 @@ function drawAxes() {
         drawLine(xMin, y, xMax, y, 'black', 1);
 
         // label to the right of the y-axis, 4px right
-        ctx.fillText(y.toFixed(2), axisX + 4, toCanvasY(y));
+        if (y === 0) {
+            continue;
+        }
+        else if (step >= 1) {
+            ctx.fillText(y, axisX , toCanvasY(y) - 6);
+        } else {
+            ctx.fillText(y.toFixed(2), axisX , toCanvasY(y) - 6);
+        }
     }
 
     if (xMin <= 0 && xMax >= 0){
@@ -107,6 +116,7 @@ function drawAxes() {
 }
 
 function plotPoint(x, y, color = 'red', size = 10){
+
     const cx = toCanvasX(x);
     const cy = toCanvasY(y);
 
@@ -129,7 +139,7 @@ function plotLine(eq, color, size, num){
     const f = makeFunc(eq);
     let prev = null;
 
-    for (let x = xMin; x <= xMax; x += step/50){
+    for (let x = xMin; x <= xMax; x += step/500){
         const y = f(x);
         if (prev){
             drawLine(prev.x, prev.y, x, y, color, 2);
@@ -152,7 +162,6 @@ function updateGraph(){
             txt3 = 'c$slider'.replace('$', num);
             document.getElementById(txt).textContent = "A: " + document.getElementById(txt1).value + "  B: " + document.getElementById(txt2).value + "  C: " + document.getElementById(txt3).value;
             plotMethod(el.value, color, num);
-            document.getElementById('stepCounter').textContent = "Step: " + document.getElementById('step').value;
         }
     });
     //plotPoint(1, 3);
@@ -237,7 +246,9 @@ const controlIds = [
     'plot1', 'plot2', 'plot3', 'plot4', 'plot5',
     'a1slider', 'b1slider', 'c1slider',
     'a2slider', 'b2slider', 'c2slider',
-    'a3slider', 'b3slider', 'c3slider'
+    'a3slider', 'b3slider', 'c3slider',
+    'a4slider', 'b4slider', 'c4slider',
+    'a5slider', 'b5slider', 'c5slider'
 ];
 
 controlIds.forEach(id => {
@@ -248,3 +259,21 @@ controlIds.forEach(id => {
 });
 
 window.addEventListener('resize', resizeCanvas);
+
+canvas.addEventListener('wheel', function(e) {
+    e.preventDefault();
+
+    if (e.deltaY < 0) {
+        // Zoom in
+        step *= 0.9;
+        if (step >= 1) step = Math.floor(step);
+        
+    }
+    else {
+        // Zoom out
+        step *= 1.1;
+        if (step >= 1) step = Math.ceil(step);
+        else if (step > 0.91) step = 1;
+    }
+    resizeCanvas();
+});
