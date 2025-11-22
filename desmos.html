@@ -14,26 +14,10 @@
     </head>
     <body>
         <h1>Desmos Clone</h1>
-        <div class="settings">
+        <div class="settings"> 
             <div class="box">
-                <h3>X Min</h3>
-                <input id="xMin" type="text" value="-10">
-            </div>
-            <div class="box">
-                <h3>X Max</h3>
-                <input id="xMax" type="text" value="10">
-            </div>
-            <div class="box">
-                <h3>Y Min</h3>
-                <input id="yMin" type="text" value="-10">
-            </div>
-            <div class="box">
-                <h3>Y Max</h3>
-                <input id="yMax" type="text" value="10">
-            </div>
-            <div class="box">
-                <h3>Step</h3>
-                <input id="step" type="text" value="1">
+                <h3 id="stepCounter">Step</h3>
+                <input type="range" id="step" min="0.001" max="100" step="0.01" value="1"/>
             </div>
         </div>
 
@@ -43,15 +27,15 @@
                 <div class="col card" id="card1">
                     <input id="plot1" type="text"  value="y=asin(bx+c)"placeholder="(x, y) or y = mx^2 + b">
                     <h3 id="slider1text">A: 0 B: 0 C: 0</h3>
-                    <input type="range" id="a1slider" min="-10" max="10" step="0.01" value="1"/>
-                    <input type="range" id="b1slider" min="-10" max="10" step="0.01" value="1"/>
+                    <input type="range" id="a1slider" min="-10" max="10" step="0.001" value="1"/>
+                    <input type="range" id="b1slider" min="-10" max="10" step="0.001" value="1"/>
                     <input type="range" id="c1slider" min="-10" max="10" step="1" value="1"/>
                 </div>
                 <div class="col card" id="card2">
                     <input id="plot2" type="text"  value="y=ax^3+bx^2+cx"placeholder="(x, y) or y = mx^2 + b">
                     <h3 id="slider2text">A: 0 B: 0 C: 0</h3>
-                    <input type="range" id="a2slider" min="-10" max="10" step="0.01" value="1"/>
-                    <input type="range" id="b2slider" min="-10" max="10" step="0.01" value="1"/>
+                    <input type="range" id="a2slider" min="-10" max="10" step="0.001" value="1"/>
+                    <input type="range" id="b2slider" min="-10" max="10" step="0.001" value="1"/>
                     <input type="range" id="c2slider" min="-10" max="10" step="1" value="1"/>
                 </div>
 

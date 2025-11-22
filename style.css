@@ -85,6 +85,11 @@ h1 {
     padding: 10px;
     text-align: center;
     border-radius: 15px;
+    width: 100%;
+}
+
+.box input{
+    width: 100%;
 }
 
 .col {

@@ -30,12 +30,25 @@ function drawLine(x1, y1, x2, y2, color = 'black', lineWidth = 2, dashed = false
 }
 
 function drawAxes() {
+    step = parseFloat(document.getElementById('step').value);
 
-    xMin = parseInt(document.getElementById('xMin').value);
-    xMax = parseInt(document.getElementById('xMax').value);
-    yMin = parseInt(document.getElementById('yMin').value);
-    yMax = parseInt(document.getElementById('yMax').value);
-    step = parseInt(document.getElementById('step').value);
+    if (!Number.isFinite(step) || step <= 0) {
+        step = 1;
+    }
+
+    // how many "units" (grid cells of 100px) fit horizontally/vertically
+    const unitsX = Width / 100;
+    const unitsY = Height / 100;
+
+    // half on each side
+    const halfUnitsX = unitsX / 2;
+    const halfUnitsY = unitsY / 2;
+
+    // snap to whole units, then scale by step
+    xMin = Math.floor(-halfUnitsX) * step;
+    xMax = Math.ceil(halfUnitsX) * step;
+    yMin = Math.floor(-halfUnitsY) * step;
+    yMax = Math.ceil(halfUnitsY) * step;
 
     clearCanvas();
 
@@ -52,17 +65,34 @@ function drawAxes() {
         
     } 
 
-    for(let x = xMin; x<= xMax; x += step){
+   // y-pixel of the x-axis (world y = 0)
+    const axisY = toCanvasY(0);
+
+    // First multiple of step >= xMin
+    let xStart = Math.ceil(xMin / step) * step;
+
+    for (let x = xStart; x <= xMax + 1e-9; x += step) {
         drawLine(x, yMin, x, yMax, 'black', 1);
-        ctx.fillStyle = 'black'
-        ctx.fillText(x, toCanvasX(x + 0.05), toCanvasY(0.05));
+
+        // label directly under the axis, 4px down
+        ctx.fillText(x.toFixed(2), toCanvasX(x) + 4, axisY);
     }
 
+    // --- Major horizontal lines + y labels ---
 
-    for(let y = yMin; y<= yMax; y += step){
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+
+    // x-pixel of the y-axis (world x = 0)
+    const axisX = toCanvasX(0);
+
+    let yStart = Math.ceil(yMin / step) * step;
+
+    for (let y = yStart; y <= yMax + 1e-9; y += step) {
         drawLine(xMin, y, xMax, y, 'black', 1);
-        ctx.fillStyle = 'black'
-        ctx.fillText(y, toCanvasX(0.05), toCanvasY(y + 0.05));
+
+        // label to the right of the y-axis, 4px right
+        ctx.fillText(y.toFixed(2), axisX + 4, toCanvasY(y));
     }
 
     if (xMin <= 0 && xMax >= 0){
@@ -84,8 +114,11 @@ function plotPoint(x, y, color = 'red', size = 10){
     ctx.fillRect(cx - size / 2, cy - size / 2, size, size)
 }
 
+function makeFunc(eq) {
+    return new Function('x', `return ${eq};`);
+}
+
 function plotLine(eq, color, size, num){
-    prev = 0
     txt1 = 'a$slider'.replace('$', num);
     txt2 = 'b$slider'.replace('$', num);
     txt3 = 'c$slider'.replace('$', num);
@@ -93,11 +126,12 @@ function plotLine(eq, color, size, num){
     eq = eq.replace(/\bb\b/g, document.getElementById(txt2).value );
     eq = eq.replace(/\bc\b/g, document.getElementById(txt3).value );
 
-    for (let x = xMin; x <= xMax; x += step/50){
-        y = eval(eq);
-        //plotPoint(x, y, color, size);
+    const f = makeFunc(eq);
+    let prev = null;
 
-        if (prev !== 0){
+    for (let x = xMin; x <= xMax; x += step/50){
+        const y = f(x);
+        if (prev){
             drawLine(prev.x, prev.y, x, y, color, 2);
         }
         prev = {x, y};
@@ -106,12 +140,11 @@ function plotLine(eq, color, size, num){
 
 
 function updateGraph(){
-    resizeCanvas();
     drawAxes();
 
     [['plot1', 'blue', '1'], ['plot2', 'green', '2'], ['plot3', 'red', '3'], ['plot4', 'purple', '4'], ['plot5', 'orange', '5']].forEach(([id, color, num]) => {
     const el = document.getElementById(id);
-        if (el && el.value == undefined) {console.log('el ', el.value)}
+        if (el && el.value == undefined) {}
         else if (el && el.value.trim() !== '') {
             txt = 'slider$text'.replace('$', num);
             txt1 = 'a$slider'.replace('$', num);
@@ -119,6 +152,7 @@ function updateGraph(){
             txt3 = 'c$slider'.replace('$', num);
             document.getElementById(txt).textContent = "A: " + document.getElementById(txt1).value + "  B: " + document.getElementById(txt2).value + "  C: " + document.getElementById(txt3).value;
             plotMethod(el.value, color, num);
+            document.getElementById('stepCounter').textContent = "Step: " + document.getElementById('step').value;
         }
     });
     //plotPoint(1, 3);
@@ -194,8 +228,9 @@ function resizeCanvas() {
     // Update our globals
     Width  = canvas.width;
     Height = canvas.height;
+    updateGraph();
 }
-updateGraph();
+resizeCanvas();
 
 const controlIds = [
     'xMin', 'xMax', 'yMin', 'yMax', 'step',
@@ -212,4 +247,4 @@ controlIds.forEach(id => {
     }
 });
 
-window.addEventListener('resize', updateGraph);
+window.addEventListener('resize', resizeCanvas);

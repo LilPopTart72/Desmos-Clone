@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.4] - 2025-11-21
+
+### Changed
+- Updated axis range calculations (xMin, xMax, yMin, yMax) to use parseFloat and Math.floor/ceil instead of parseInt to fully support decimal step sizes.
+- Reworked major gridline loops to increment directly by step rather than iterating by integers and using modulo checks.
+- Axis label positions now use fixed pixel offsets relative to the actual axis location (toCanvasX(0) / toCanvasY(0)), preventing labels from drifting when using fractional steps or dynamic canvas sizes.
+
+### Fixed
+- Resolved freezing/crashing caused by invalid or zero step values by adding validation and fallback handling.
+- Fixed axis labels drifting upward/downward when using decimal steps due to world-space offsets; labels now remain stable across all zoom levels.
+- Fixed floating-point stepping issues by adding small epsilon (1e-9) to loop end conditions to avoid infinite loops or skipped lines.
+
 ## [1.0.3] - 2025-11-16
 ### Added
 - Dynamic window resize listener to keep the graph updated automatically.
