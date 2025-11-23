@@ -8,7 +8,8 @@ and interactive UI design.
 ---
 
 # 📸 Preview
-*(Optional screenshot here — I can generate one for you if you want.)*
+<img width="2559" height="1439" alt="image" src="https://github.com/user-attachments/assets/ea2894e4-f238-4971-b3a0-bfec49efd668" />
+
 
 ---
 
