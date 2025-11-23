@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic JS Tests</title>
+</head>
+<body>
+<!-- Add this so core.js can find #graph -->
+<canvas id="graph" width="400" height="400" style="display:none;"></canvas>
+<h1>Basic JS Tests</h1>
+<pre id="output"></pre>
+
+<script src="../src/Scripts/core.js"></script>
+<script src="../src/Scripts/graphUtils.js"></script>
+<script src="../src/Scripts/graph.js"></script>
+
+<script>
+function log(msg) {
+    document.getElementById("output").textContent += msg + "\n";
+}
+
+log("=== Testing parsePoint ===");
+let p = GraphUtils.parsePoint("(3,4)");
+log("parsePoint('(3,4)') => x=" + p.x + " y=" + p.y);
+p = GraphUtils.parsePoint("(0,0)");
+log("parsePoint('(0,0)') => x=" + p.x + " y=" + p.y);
+p = GraphUtils.parsePoint("(10000000,-10000000)");
+log("parsePoint('(10000000,-10000000)') => x=" + p.x + " y=" + p.y);
+p = GraphUtils.parsePoint("(100000000.0000,-10000000.0000)");
+log("parsePoint('(100000000.0000,-10000000.0000)') => x=" + p.x + " y=" + p.y);
+p = GraphUtils.parsePoint("10,-10");
+log("parsePoint('10,-10') => x=" + p.x + " y=" + p.y);
+p = GraphUtils.parsePoint("( 5 , - 10 )");
+log("parsePoint('( 10 , - 10 )') => x=" + p.x + " y=" + p.y);
+p = GraphUtils.parsePoint("(10 ,-- 10)");
+log("parsePoint('(10 ,-- 10)') => x=" + p.x + " y=" + p.y);
+
+
+log("\n=== Testing parseLine + makeFunc===");
+let eq = "y=2x+3";
+let parsed = GraphUtils.parseLine(eq);
+log("parseLine('y=2x+3') => " + parsed);
+let f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "2x+3";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('2x+3') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=2x^3+2x^2+2x+2";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=2x^3+2x^2+2x+2') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=2x^2*(x+1)";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=2x^2*(x+1)') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=sin(x)";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=sin(x)') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=log(x)";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=log(x)') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=ln(x)";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=ln(x)') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=abs(x)";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=abs(x)') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=sqrt(x)";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=sqrt(x)') => " + parsed);
+f = GraphUtils.makeFunc(parsed);
+log("f(-1) = " + f(-1)); // Expect 3
+log("f(0) = " + f(0)); // Expect 3
+log("f(0.5) = " + f(0.5)); // Expect 3
+log("f(1) = " + f(1)); // Expect 5
+log("f(2) = " + f(2)); // Expect 7
+
+eq = "y=ax^2+bx+c";
+parsed = GraphUtils.parseLine(eq);
+log("\nparseLine('y=ax^2+bx+c') => " + parsed);
+
+
+log("\n=== Testing toCanvasX/Y ===");
+
+// manually set state
+GraphCore.setSize(400, 400);
+GraphCore.setRange(-10, 10, -10, 10);
+log("size 400,400 Range -10,10");
+log("\ntoCanvasX(-10) => " + GraphUtils.toCanvasX(-10)); // expect 0
+log("toCanvasX(10)  => " + GraphUtils.toCanvasX(10));  // expect 400
+log("toCanvasX(0)   => " + GraphUtils.toCanvasX(0));   // expect 200
+
+log("toCanvasY(10)  => " + GraphUtils.toCanvasY(10));  // expect 0
+log("toCanvasY(-10) => " + GraphUtils.toCanvasY(-10)); // expect 400
+log("toCanvasY(0)   => " + GraphUtils.toCanvasY(0));   // expect 200
+
+GraphCore.setSize(1000, 600);
+GraphCore.setRange(-10, 10, -10, 10);
+log("\nsize 1000,600 Range -10,10");
+log("\ntoCanvasX(-10) => " + GraphUtils.toCanvasX(-10)); // expect 0
+log("toCanvasX(10)  => " + GraphUtils.toCanvasX(10));  // expect 1000
+log("toCanvasX(0)   => " + GraphUtils.toCanvasX(0));   // expect 500
+
+log("toCanvasY(10)  => " + GraphUtils.toCanvasY(10));  // expect 0
+log("toCanvasY(-10) => " + GraphUtils.toCanvasY(-10)); // expect 600
+log("toCanvasY(0)   => " + GraphUtils.toCanvasY(0));   // expect 300
+log("\n=== Done! ===");
+</script>
+
+</body>
+</html>

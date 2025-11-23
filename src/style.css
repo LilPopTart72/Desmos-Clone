@@ -22,23 +22,7 @@ h1 {
     text-align: center;
 }
 
-/* Top settings bar: natural height only */
-.settings {
-    display: flex;
-    flex-wrap: nowrap;      /* no wrapping */
-    gap: 10px;
 
-    margin: 0 10px 10px;
-    padding: 20px;
-    background: #e2e2e2;
-    border-radius: 15px;
-    flex: 0 0 auto;
-    align-items: ;
-
-    overflow-x: auto;       /* horizontal scrollbar */
-    overflow-y: hidden;     /* no vertical scroll */
-    box-sizing: border-box;
-}
 
 .box {
     flex: 0 0 auto;         /* each box keeps its own width, doesn't shrink */

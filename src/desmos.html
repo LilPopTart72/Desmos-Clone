@@ -20,14 +20,14 @@
             <div class="plotter">
                 <h3>Functions (y = mx + b)</h3>
                 <div class="col card" id="card1">
-                    <input id="plot1" type="text"  value="y=asin(bx+c)"placeholder="(x, y) or y = mx^2 + b">
+                    <input id="plot1" type="text"  value="y=ax^3+bx^2+cx" placeholder="(x, y) or y = mx^2 + b">
                     <h3 id="slider1text">A: 0 B: 0 C: 0</h3>
                     <input type="range" id="a1slider" min="-10" max="10" step="0.001" value="1"/>
                     <input type="range" id="b1slider" min="-10" max="10" step="0.001" value="1"/>
                     <input type="range" id="c1slider" min="-10" max="10" step="1" value="1"/>
                 </div>
                 <div class="col card" id="card2">
-                    <input id="plot2" type="text"  value="y=ax^3+bx^2+cx"placeholder="(x, y) or y = mx^2 + b">
+                    <input id="plot2" type="text"  value="y=asin(bx+c)" placeholder="(x, y) or y = mx^2 + b">
                     <h3 id="slider2text">A: 0 B: 0 C: 0</h3>
                     <input type="range" id="a2slider" min="-10" max="10" step="0.001" value="1"/>
                     <input type="range" id="b2slider" min="-10" max="10" step="0.001" value="1"/>
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="col card" id="card3">
-                    <input id="plot3" type="text"  placeholder="(x, y) or y = mx^2 + b">
+                    <input id="plot3" type="text" value="y=alog(bx+c)" placeholder="(x, y) or y = mx^2 + b">
                     <h3 id="slider3text">A: 0 B: 0 C: 0</h3>
                     <input type="range" id="a3slider" min="-10" max="10" step="0.01" value="1"/>
                     <input type="range" id="b3slider" min="-10" max="10" step="0.01" value="1"/>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="col card" id="card4">
-                    <input id="plot4" type="text"  placeholder="(x, y) or y = mx^2 + b">
+                    <input id="plot4" type="text" value="y=aabs(bx+c)" placeholder="(x, y) or y = mx^2 + b">
                     <h3 id="slider4text">A: 0 B: 0 C: 0</h3>
                     <input type="range" id="a4slider" min="-10" max="10" step="0.01" value="1"/>
                     <input type="range" id="b4slider" min="-10" max="10" step="0.01" value="1"/>
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="col card" id="card5">
-                    <input id="plot5" type="text"  placeholder="(x, y) or y = mx^2 + b">
+                    <input id="plot5" type="text" value="y=asqrt(bx+c)" placeholder="(x, y) or y = mx^2 + b">
                     <h3 id="slider5text">A: 0 B: 0 C: 0</h3>
                     <input type="range" id="a5slider" min="-10" max="10" step="0.01" value="1"/>
                     <input type="range" id="b5slider" min="-10" max="10" step="0.01" value="1"/>
@@ -63,7 +63,10 @@
             <canvas id="graph"></canvas>
         </div>
 
-    
-        <script src="script.js" async defer></script>
+        <script src="Scripts/core.js" async defer></script>
+        <script src="Scripts/graphUtils.js" async defer></script>
+        <script src="Scripts/graph.js" async defer></script>
+        <script src="Scripts/listeners.js" async defer></script>
+        
     </body>
 </html>

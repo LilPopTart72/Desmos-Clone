@@ -3,7 +3,39 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [1.0.4] - 2025-11-21
+## [1.1.0] - 2025-11-22
+### Added
+- Created a new `src/` folder to organize all project source files.
+- Moved all JavaScript modules into `src/Scripts/`:
+  - `core.js` — central canvas/range state, exposed via `GraphCore`.
+  - `graphUtils.js` — drawing helpers, coordinate transforms, point plotting, equation parsing.
+  - `graph.js` — axes rendering, grid generation, plotting logic, `updateGraph` / `resizeCanvas`.
+  - `listeners.js` — DOM input handlers, resize listener, scroll-wheel zoom.
+- Added a `test/` directory for future automated tests (unit tests, integration tests, regression tests, etc.).
+- Added project-level files:
+  - `.gitignore` — ignoring build artifacts, OS clutter, and editor junk.
+  - `LICENSE` — project licensing file.
+  - `README.md` — documentation for setup, usage, and project structure.
+- Added scroll-wheel zooming that automatically adjusts graph step size.
+- Added centralized global objects (`GraphCore` and `Graph`) to be shared cleanly across modules.
+
+### Changed
+- Refactored the original monolithic `script.js` into four maintainable modules with clear responsibilities.
+- Rebuilt grid rendering so major/minor gridlines use `step` and `step / 4` for consistent resolution.
+- Updated Y-axis labeling logic:
+  - Skip labels near zero using `if (y < step && y > -step)` to remove clutter.
+  - Use decimal precision (`toFixed(2)` / `toFixed(4)`) when zoomed in.
+- Improved resizing behavior: canvas size and drawing buffer now update dynamically to prevent blur/stretching.
+- Consolidated all plot configuration (`PLOTS` array) inside `graph.js`.
+
+### Fixed
+- Eliminated race conditions where listeners loaded before the graph system, which caused errors like `Graph is not defined`.
+- Fixed global namespace conflicts from mixing `GraphState`, `GraphCore`, `Graph`.
+- Fixed implicit function parsing inconsistencies by improving equation normalization in `graphUtils.js`.
+- Ensured consistent world-to-canvas coordinate mapping after zooming or resizing.
+
+
+## [1.0.5] - 2025-11-21
 
 ### Added
 - Ability to zoom in and ouut with scroll wheel on the graph.

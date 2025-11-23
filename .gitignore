@@ -1,0 +1,16 @@
+# OS / editor files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node modules (future)
+node_modules/
+
+# Build artifacts (future)
+dist/
+build/
+
+# VSCode settings
+.vscode/
