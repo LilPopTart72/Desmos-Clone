@@ -90,3 +90,45 @@ h1 {
     border-radius: 15px;
     margin: 10px;
 }
+
+
+/* Card Styling*/
+.slider-container {
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    gap: 8px;
+    padding: 12px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    margin-Top: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Top line: A: 1.234 */
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Middle: The Range Bar */
+.slider-container input[type="range"] {
+    width: 100%;
+}
+
+/* Bottom line: Min, Max, Step */
+.slider-settings {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.slider-settings input {
+    width: 30%; /* Balanced split */
+    font-size: 0.75rem;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+}
