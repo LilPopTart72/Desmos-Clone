@@ -1,153 +1,60 @@
-# Desmos Clone (Alpha v1.0)
+# Desmos Clone (v1.2)
 
-A lightweight graphing calculator built entirely with **vanilla JavaScript**, **HTML**, and **CSS**.  
-This project is designed to emulate core Desmos functionality while staying simple, understandable,  
-and hackable — perfect for learning graphical math programming, canvas rendering, expression parsing,  
-and interactive UI design.
+A lightweight, infinitely scalable graphing calculator built entirely with **Vanilla JavaScript**, **HTML**, and **CSS**.  
+This project emulates core Desmos functionality while remaining modular, hackable, and dependency-free. It showcases dynamic DOM manipulation, custom state management, mathematical expression parsing, and high-performance HTML5 Canvas rendering.
 
 ---
 
 # 📸 Preview
-<img width="2559" height="1439" alt="image" src="https://github.com/user-attachments/assets/ea2894e4-f238-4971-b3a0-bfec49efd668" />
-
+<img width="2559" height="1439" alt="image" src="./assets/preview.png" />
 
 ---
 
-# ✨ Features (v1.0)
+# ✨ Features (v1.2)
 
-### 🎨 Canvas-Based Rendering
-- Fully dynamic graph rendering using HTML `<canvas>`
-- X/Y axes with adjustable bounds
-- Major gridlines (dark) + minor gridlines (light)
-- Automatic redrawing on input changes
-- Supports arbitrary graph sizes and responsive layouts
+### 🎨 High-Performance Canvas Rendering
+- Dynamic coordinate mapping between "world space" and canvas pixels.
+- X/Y axes with adjustable bounds and responsive scaling.
+- Precision gridlines that dynamically adjust density based on zoom level.
+- Scroll-to-zoom functionality centered directly on the graph viewport.
+- Window resize listeners that automatically recalculate the drawing buffer to prevent stretching.
 
-### 🧮 Expression Evaluation
-- Parse and graph basic algebraic expressions
-- Supports `x`, powers (e.g., `x^2`), constants, and simple arithmetic
-- Replaces `a`, `b`, `c` with slider values dynamically
+### 🧮 Advanced Expression Parsing
+- Parses and graphs algebraic expressions dynamically.
+- **Implicit Multiplication:** Automatically handles math syntax like `2x`, `3(x+1)`, or `a*sin(x)`.
+- **Dynamic Variable Detection:** A regex-based engine automatically scans equations for unique variables (ignoring reserved math terms like `sin` or `log`) and generates UI controls for them on the fly.
 
-### 🎚️ Interactive UI
-- Dynamic cards with:
-  - Text input for equation
-  - Sliders for parameters (`a`, `b`, `c`)
-  - Live-updating UI text
-- Expandable “settings panel”
-- Scroll-to-zoom (centered on the graph)
-
-### ⚙️ Utility Functions
-- Coordinate transforms (`toCanvasX`, `toCanvasY`)
-- Line drawing utilities
-- Automatic scaling & resizing handlers
+### 🎚️ Reactive & "Self-Cleaning" UI
+- **Infinite Equation Workspace:** Add as many functions as you need; the UI scales automatically.
+- **Smart Sliders:** Variables automatically generate a "Control Module" with a precise range slider, current value readout, and adjustable min/max/step boundaries.
+- **State Preservation:** A custom `sliderCache` memory object remembers your variable settings even if you temporarily delete a variable from your equation.
+- **Self-Cleaning:** Empty equation cards automatically remove themselves when you click away, keeping the workspace tidy while always providing a fresh input at the bottom.
 
 ---
 
 # 🧱 Tech Stack
-**Current Version Uses:**
-- HTML  
-- CSS  
-- Vanilla JavaScript  
-- HTML Canvas API  
-- DOM-based UI
-
-**Planned for v2+**
-- React  
-- React Hooks  
-- React Context  
-- Vite or Next.js  
-- Modular parser  
-- Unit tests (Jest)  
-- E2E tests (Playwright)  
+**100% Vanilla**
+- HTML5 
+- CSS3 (Flexbox/Grid Layouts)
+- Vanilla JavaScript (ES6+)
+- HTML5 Canvas API
 
 ---
 
-# 📦 Folder Structure (v1)
+# 📦 Modular Architecture
 
+The monolithic script has been refactored into a clean, separation-of-concerns architecture:
+
+```text
 index.html
+style.css
 src/
-  |- script.js
-  |- style.css
-  |- utils/
-  |- parser/
-tests/
-docs/
-CHANGELOG.md
+  |- Scripts/
+      |- core.js         # Central state management (GraphCore), dimensions, and ranges
+      |- graphUtils.js   # Math parsing, coordinate transforms, and canvas drawing helpers
+      |- graph.js        # Axes generation, grid plotting, and the main update loop
+      |- listeners.js    # DOM event bindings, scroll-wheel logic, and resize handling
+tests/                 # Future unit testing suite
+CHANGELOG.md           # Version history
 README.md
 LICENSE
-.gitignore
-
----
-
-# 🧪 **6. Comprehensive Testing Suite**
-Projects like this *shine* with testing — and React makes it easier.
-
-### Planned Tools:
-- **Jest** — unit tests for math & parsing
-- **React Testing Library** — render + interaction tests
-- **Playwright** — end-to-end browser testing
-
-### What to test:
-- Parser correctness
-- Plot accuracy
-- UI interactions
-- Slider → equation updates
-- Major/minor gridline spacing correctness
-
----
-
-# 🎨 **7. UI Enhancement & Next-Level Polish**
-- Full mobile support
-- Better responsive scaling
-- Animations using CSS or Framer Motion
-- Draggable cards
-- Collapsible menu
-- Undo / redo history
-
----
-
-# 🔌 **8. Plugin Architecture for Functions (Optional v3 idea)**
-Imagine allowing users to write their own functions:
-
-f(x) = sin(2x) + g(x)
-
-
-Custom definitions require:
-- User function registry
-- Dependency tracking
-- Recursive AST resolution
-
----
-
-# 🧠 Notes on Long-Term Vision (v3+)
-- Add 3D graphing (`z = f(x,y)`)
-- Add parametric mode (`x(t)`, `y(t)`)
-- Add piecewise functions
-- Add inequalities shading
-- Add polar coordinates
-- Add Riemann sums, integrals, derivative visualization
-
----
-
-# 🛠️ Running the Project (v1)
-
-1. Clone the repo:
-- git clone <Desmos-Clone>
-
-2. Open the HTML file:
-index.html
-
-No build steps required.
-
----
-
-# 📜 License
-MIT License — free to use, modify, distribute, and learn from.
-
----
-
-# ✨ Author
-Created by **Riley Thompson**  
-College CS major | Python + JavaScript Developer | UI/Canvas Rendering Enthusiast
-
----
-
