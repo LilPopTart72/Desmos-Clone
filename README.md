@@ -6,7 +6,8 @@ This project emulates core Desmos functionality while remaining modular, hackabl
 ---
 
 # 📸 Preview
-<img width="2559" height="1439" alt="image" src="./assets/preview.png" />
+<img width="2559" height="1269" alt="image" src="https://github.com/user-attachments/assets/77510396-f5af-4b11-a764-832758b494b5" />
+
 
 ---
 
