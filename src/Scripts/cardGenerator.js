@@ -45,6 +45,8 @@ function createCard() {
 
         console.log("Unique Variables:", uniqueVariables);
         renderDynamicSliders(card.id, uniqueVariables);
+
+        if (window.Graph) window.Graph.updateGraph();
     });
 
     document.getElementById('plotter-sidebar').appendChild(card);
@@ -115,6 +117,7 @@ function renderDynamicSliders(cardId, variables) {
                 valueSpan.textContent = slider.value;
                 sliderCache[`${cardId}-${variable}`].val = slider.value;
             }
+            if (window.Graph) window.Graph.updateGraph();
         });
 
         // 3. Settings Row
@@ -129,6 +132,7 @@ function renderDynamicSliders(cardId, variables) {
         minInput.addEventListener('input', () => {
             slider.min = minInput.value;
             sliderCache[`${cardId}-${variable}`].min = slider.min;
+            if (window.Graph) window.Graph.updateGraph();
         });
 
         // Max Changer
@@ -139,6 +143,7 @@ function renderDynamicSliders(cardId, variables) {
         maxInput.addEventListener('input', () => {
             slider.max = maxInput.value;
             sliderCache[`${cardId}-${variable}`].max = slider.max;
+            if (window.Graph) window.Graph.updateGraph();
         });
 
         // step changer
@@ -151,6 +156,7 @@ function renderDynamicSliders(cardId, variables) {
         stepinput.addEventListener('input', () => { 
             slider.step = stepinput.value;
             sliderCache[`${cardId}-${variable}`].step = slider.step;
+            if (window.Graph) window.Graph.updateGraph();
         });
 
         // Append settings

@@ -1,28 +1,11 @@
 // listeners.js
 
-const inputs = [
-    "plot1", "plot2", "plot3", "plot4", "plot5",
-    "xMin", "xMax", "yMin", "yMax", "step",
-    "a1slider", "b1slider", "c1slider",
-    "a2slider", "b2slider", "c2slider",
-    "a3slider", "b3slider", "c3slider",
-    "a4slider", "b4slider", "c4slider",
-    "a5slider", "b5slider", "c5slider"
-];
-
 window.addEventListener("DOMContentLoaded", () => {
     // Make sure Graph exists
     if (!window.Graph) {
         console.error("Graph is not defined – check that graph.js is loaded before listeners.js");
         return;
     }
-
-    // Hook up input listeners
-    inputs.forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.addEventListener("input", Graph.updateGraph);
-    });
 
     window.addEventListener("resize", Graph.resizeCanvas);
     

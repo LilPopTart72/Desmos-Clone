@@ -1,12 +1,4 @@
 // graph.js
-const PLOTS = [
-    ['plot1', 'blue',  '1'],
-    ['plot2', 'green', '2'],
-    ['plot3', 'red',   '3'],
-    ['plot4', 'purple','4'],
-    ['plot5', 'orange','5']
-];
-
 function drawAxes() {
     if (!Number.isFinite(step) || step <= 0) {
         step = 1;
@@ -91,26 +83,35 @@ function drawAxes() {
     }
 }
 
-function plotLine(eq, color, size, num) {
-
-    const txt1 = 'a$slider'.replace('$', num);
-    const txt2 = 'b$slider'.replace('$', num);
-    const txt3 = 'c$slider'.replace('$', num);
-
-    eq = eq.replace(/\ba\b/g, document.getElementById(txt1).value);
-    eq = eq.replace(/\bb\b/g, document.getElementById(txt2).value);
-    eq = eq.replace(/\bc\b/g, document.getElementById(txt3).value);
-
-    const f = GraphUtils.makeFunc(eq);
-
-    let prev = null;
-
-    for (let x = xMin; x <= xMax; x += step / 500) {
-        const y = f(x);
-        if (prev) {
-            GraphUtils.drawLine(prev.x, prev.y, x, y, color, 2);
+function plotLine(eq, color, size, cardIdNum) {
+    const cardId = `card${cardIdNum}`;
+    
+    // Look through the cache for any variables belonging to this card
+    // and replace them in the equation string
+    Object.keys(sliderCache).forEach(key => {
+        if (key.startsWith(`${cardId}-`)) {
+            const varName = key.split('-')[1]; // get the "a" from "card1-a"
+            const val = sliderCache[key].val;
+            
+            // Create a regex to replace the variable (e.g., \ba\b)
+            const re = new RegExp(`\\b${varName}\\b`, 'g');
+            eq = eq.replace(re, val);
         }
-        prev = { x, y };
+    });
+
+    try {
+        const f = GraphUtils.makeFunc(eq);
+        let prev = null;
+
+        for (let x = xMin; x <= xMax; x += step / 500) {
+            const y = f(x);
+            if (prev && Number.isFinite(y)) {
+                GraphUtils.drawLine(prev.x, prev.y, x, y, color, 2);
+            }
+            prev = { x, y };
+        }
+    } catch (e) {
+        console.warn("Invalid Equation:", eq);
     }
 }
 
@@ -127,24 +128,20 @@ function plotMethod(input, color, num) {
 function updateGraph() {
     drawAxes();
 
-    PLOTS.forEach(([id, color, num]) => {
-        const el = document.getElementById(id);
-        if (!el || !el.value || el.value.trim() === '') return;
+    // 1. Grab EVERY card currently in the sidebar
+    const cards = document.querySelectorAll('.card');
 
-        const sliderLabelId = `slider${num}text`;
-        const aId = `a${num}slider`;
-        const bId = `b${num}slider`;
-        const cId = `c${num}slider`;
+    cards.forEach(card => {
+        const idNum = card.id.replace('card', ''); // gets the "1" from "card1"
+        const input = card.querySelector('.plot-input');
+        
+        if (!input || !input.value.trim()) return;
 
-        const labelEl = document.getElementById(sliderLabelId);
-        if (labelEl) {
-            labelEl.textContent =
-                `A: ${document.getElementById(aId).value}  ` +
-                `B: ${document.getElementById(bId).value}  ` +
-                `C: ${document.getElementById(cId).value}`;
-        }
+        // 2. Instead of a hardcoded color, maybe assign one based on index
+        const colors = ['blue', 'red', 'green', 'purple', 'orange', 'black'];
+        const color = colors[idNum % colors.length];
 
-        plotMethod(el.value, color, num);
+        plotMethod(input.value, color, idNum);
     });
 }
 

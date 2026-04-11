@@ -3,6 +3,25 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-04-11
+### Added
+- Implemented an infinite dynamic card generator to replace the hardcoded 5-slot limit.
+- Added a regex-based variable parser (`/[a-z]/gi`) that automatically detects custom variables in equations (ignoring reserved words like `sin`, `cos`, `x`, `y`) and generates UI sliders for them.
+- Built a state management system (`sliderCache`) to preserve user-defined values, limits (min/max), and step sizes while actively typing or editing equations.
+- Added "Self-Cleaning" UI logic: empty equation cards automatically delete themselves when they lose focus, ensuring the sidebar stays uncluttered while always preserving one empty card at the bottom.
+
+### Changed
+- Redesigned the variable slider UI into a vertical "Control Module" using Flexbox, placing the variable value above the slider and the min/max/step settings cleanly below.
+- Refactored the graphing engine (`updateGraph` and `plotLine`) to abandon the hardcoded `PLOTS` array; it now dynamically scans the DOM for `.card` elements and renders them.
+- Updated equation string replacement to pull values directly from the `sliderCache` memory object rather than hunting for hardcoded DOM IDs.
+- Stripped the massive, hardcoded `inputs` array out of `listeners.js`; event listeners are now attached dynamically at the moment of element creation.
+
+### Fixed
+- Fixed critical script initialization crashes ("canvas is null") by removing conflicting `async` attributes and strictly using `defer` for proper load order.
+- Fixed a slider "snapping" bug that rounded decimals to integers by strictly assigning the HTML `step` attribute before `min`, `max`, and `value`.
+- Prevented duplicate sliders from generating when a variable is typed multiple times in one equation (e.g., `y=ax+a`) by passing matches through a unique `Set`.
+- Fixed the canvas not redrawing on new cards by properly binding `Graph.updateGraph()` to all dynamically generated text inputs and range sliders.
+
 ## [1.1.0] - 2025-11-22
 ### Added
 - Created a new `src/` folder to organize all project source files.
